@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Website Pembelajaran Fungsi - materi fungsi linear, kuadrat, komposisi & invers, program linear. Lengkap dengan grafik interaktif, kalkulator, latihan soal dan penilaian otomatis.">
+<meta name="theme-color" content="#1d4ed8">
+<title>Website Pembelajaran Fungsi</title>
+<style>
+/* ============================================================
+   TEMA BIRU - Website Pembelajaran Fungsi
+   ============================================================ */
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+
+  --blue-50:#eff6ff;--blue-100:#dbeafe;--blue-200:#bfdbfe;--blue-300:#93c5fd;
+  --blue-400:#60a5fa;--blue-500:#3b82f6;--blue-600:#2563eb;--blue-700:#1d4ed8;
+  --blue-800:#1e40af;--blue-900:#1e3a8a;--blue-950:#172554;
+
+  --bg:#f2f7ff;--bg2:#e6f0ff;
+  --card:#ffffff;--card2:#f8fbff;
+  --tx:#0f2557;--mut:#5a7099;--ac:#1d4ed8;--ac2:#2563eb;--acs:#e0ecff;
+  --bd:#d3e3fb;--bds:#c2d9fa;
+  --g:#e11d48;--ok:#0f9d58;--warn:#b45309;
+
+  --sh1:0 1px 2px rgba(23,37,84,.06),0 2px 6px rgba(23,37,84,.05);
+  --sh2:0 6px 18px rgba(23,37,84,.10),0 2px 6px rgba(23,37,84,.06);
+  --sh3:0 14px 38px rgba(23,37,84,.16);
+  --r:16px;--r2:12px;--r3:9px;
+  --max:1040px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0b1224;--bg2:#101a33;
+  --card:#141f3d;--card2:#182646;
+  --tx:#e6edff;--mut:#9db2da;--ac:#7ba6ff;--ac2:#5b8bff;--acs:#1b2b52;
+  --bd:#22345e;--bds:#2c4680;
+  --g:#ff7a90;--ok:#34d399;--warn:#fbbf24;
+  --sh1:0 1px 2px rgba(0,0,0,.35);
+  --sh2:0 8px 22px rgba(0,0,0,.40);
+  --sh3:0 16px 42px rgba(0,0,0,.50);
+}}
+:root[data-theme="dark"]{
+  --bg:#0b1224;--bg2:#101a33;
+  --card:#141f3d;--card2:#182646;
+  --tx:#e6edff;--mut:#9db2da;--ac:#7ba6ff;--ac2:#5b8bff;--acs:#1b2b52;
+  --bd:#22345e;--bds:#2c4680;
+  --g:#ff7a90;--ok:#34d399;--warn:#fbbf24;
+  --sh1:0 1px 2px rgba(0,0,0,.35);
+  --sh2:0 8px 22px rgba(0,0,0,.40);
+  --sh3:0 16px 42px rgba(0,0,0,.50);
+}
+
+*{box-sizing:border-box}
+html{scroll-padding-top:120px;-webkit-text-size-adjust:100%}
+body{
+  margin:0;color:var(--tx);line-height:1.6;min-height:100vh;
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  background:
+    radial-gradient(1100px 520px at 12% -8%,var(--blue-100) 0%,transparent 62%),
+    radial-gradient(900px 460px at 92% 4%,var(--blue-100) 0%,transparent 58%),
+    linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%);
+  background-attachment:fixed;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) body{
+  background:radial-gradient(1100px 520px at 12% -8%,#15265c 0%,transparent 62%),
+             radial-gradient(900px 460px at 92% 4%,#132048 0%,transparent 58%),
+             linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%);
+  background-attachment:fixed;
+}}
+:root[data-theme="dark"] body{
+  background:radial-gradient(1100px 520px at 12% -8%,#15265c 0%,transparent 62%),
+             radial-gradient(900px 460px at 92% 4%,#132048 0%,transparent 58%),
+             linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%);
+  background-attachment:fixed;
+}
+
+/* ---------- HEADER ---------- */
+.topbar{
+  background:linear-gradient(125deg,var(--blue-950) 0%,var(--blue-800) 42%,var(--blue-600) 78%,var(--blue-500) 100%);
+  color:#fff;position:relative;overflow:hidden;
+  box-shadow:0 10px 30px rgba(23,37,84,.28);
+}
+.topbar::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(520px 220px at 88% -30%,rgba(255,255,255,.22),transparent 70%),
+    radial-gradient(420px 200px at 6% 130%,rgba(255,255,255,.12),transparent 70%);
+}
+.topbar-in{max-width:var(--max);margin:0 auto;padding:22px 18px;position:relative;z-index:1;
+  display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:14px;min-width:0}
+.brand-ico{
+  width:50px;height:50px;flex:0 0 50px;border-radius:14px;display:grid;place-items:center;font-size:26px;
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.30);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 6px 16px rgba(8,20,60,.30);
+}
+.brand h1{margin:0;font-size:1.32rem;font-weight:750;letter-spacing:-.2px}
+.brand p{margin:2px 0 0;font-size:.88rem;color:rgba(255,255,255,.86)}
+.topbar-act{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+
+.chip{
+  display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;
+  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.26);
+  color:#fff;font:inherit;font-size:.85rem;cursor:pointer;backdrop-filter:blur(6px);
+  transition:background .18s,transform .18s;
+}
+.chip:hover{background:rgba(255,255,255,.24);transform:translateY(-1px)}
+.chip b{font-weight:650}
+.chip .dot{width:8px;height:8px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 3px rgba(74,222,128,.28)}
+.chip .dot.off{background:#fca5a5;box-shadow:0 0 0 3px rgba(252,165,165,.28)}
+
+/* ---------- NAV ---------- */
+.nav{
+  position:sticky;top:0;z-index:40;background:var(--card);
+  border-bottom:1px solid var(--bd);box-shadow:var(--sh1);
+}
+.nav-in{max-width:var(--max);margin:0 auto;padding:8px 18px;display:flex;gap:6px;overflow-x:auto;
+  scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+.nav-in::-webkit-scrollbar{height:0}
+.nav button{
+  white-space:nowrap;background:none;border:0;font:inherit;font-size:.9rem;font-weight:600;color:var(--mut);
+  padding:9px 14px;border-radius:999px;cursor:pointer;transition:background .18s,color .18s;
+}
+.nav button:hover{background:var(--acs);color:var(--ac)}
+.nav button[aria-current="page"]{background:linear-gradient(135deg,var(--ac),var(--blue-500));color:#fff;box-shadow:var(--sh1)}
+
+/* ---------- LAYOUT ---------- */
+main{max-width:var(--max);margin:0 auto;padding:22px 18px 56px}
+.page-head{margin:0 0 18px}
+.page-head h2{margin:0;font-size:1.5rem;letter-spacing:-.3px;display:flex;align-items:center;gap:10px}
+.page-head .sub{margin:5px 0 0;color:var(--mut);font-size:.92rem}
+.back{
+  background:var(--card);border:1px solid var(--bd);color:var(--ac);font:inherit;font-size:.88rem;font-weight:600;
+  padding:8px 14px;border-radius:999px;cursor:pointer;margin-bottom:14px;box-shadow:var(--sh1);
+  transition:transform .18s,border-color .18s;
+}
+.back:hover{border-color:var(--ac);transform:translateX(-2px)}
+
+h2{margin:.2em 0 .5em}
+h3{margin:1.4em 0 .5em;font-size:1.06rem;color:var(--blue-800)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) h3{color:var(--blue-200)}}
+:root[data-theme="dark"] h3{color:var(--blue-200)}
+p{margin:.7em 0}
+ol,ul{padding-left:1.25em}
+li{margin:.3em 0}
+
+/* ---------- HERO ---------- */
+.hero{
+  background:linear-gradient(135deg,var(--blue-800),var(--blue-600) 55%,var(--blue-500));
+  color:#fff;border-radius:var(--r);padding:22px 24px;box-shadow:var(--sh3);position:relative;overflow:hidden;margin-bottom:20px;
+}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(460px 200px at 92% -10%,rgba(255,255,255,.24),transparent 70%)}
+.hero h2{margin:0 0 4px;font-size:1.28rem;position:relative}
+.hero p{margin:0;color:rgba(255,255,255,.9);font-size:.92rem;position:relative}
+
+/* ---------- GRID KARTU ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(228px,1fr));gap:14px;margin-top:6px}
+.card{
+  position:relative;text-align:left;cursor:pointer;font:inherit;color:inherit;width:100%;
+  background:var(--card);border:1px solid var(--bd);border-radius:var(--r);
+  padding:18px 18px 16px;box-shadow:var(--sh1);transition:transform .2s,box-shadow .2s,border-color .2s;
+  display:flex;flex-direction:column;gap:6px;overflow:hidden;
+}
+.card::before{content:"";position:absolute;inset:0 auto 0 0;width:5px;
+  background:linear-gradient(180deg,var(--blue-500),var(--blue-800));opacity:0;transition:opacity .2s}
+.card:hover{transform:translateY(-4px);box-shadow:var(--sh3);border-color:var(--bds)}
+.card:hover::before{opacity:1}
+.card .ico{
+  width:44px;height:44px;border-radius:13px;display:grid;place-items:center;font-size:22px;
+  background:linear-gradient(135deg,var(--blue-100),var(--blue-200));border:1px solid var(--bds);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .card .ico{background:linear-gradient(135deg,#1c3163,#24447f);border-color:#2c4680}}
+:root[data-theme="dark"] .card .ico{background:linear-gradient(135deg,#1c3163,#24447f);border-color:#2c4680}
+.card b{color:var(--blue-800);font-size:1.04rem}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .card b{color:var(--blue-200)}}
+:root[data-theme="dark"] .card b{color:var(--blue-200)}
+.card span{color:var(--mut);font-size:.88rem;line-height:1.5}
+.card .tag{
+  align-self:flex-start;margin-top:2px;font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--ac);background:var(--acs);border-radius:999px;padding:3px 9px;
+}
+.card .tag.done{color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,transparent)}
+.card .tag.new{color:var(--warn);background:color-mix(in srgb,var(--warn) 15%,transparent)}
+
+/* ---------- STAT ---------- */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:4px 0 22px}
+.stat{background:var(--card);border:1px solid var(--bd);border-radius:var(--r2);padding:14px 16px;box-shadow:var(--sh1)}
+.stat .k{margin:0;font-size:.78rem;color:var(--mut);font-weight:600;letter-spacing:.02em;text-transform:uppercase}
+.stat .v{margin:2px 0 0;font-size:1.42rem;font-weight:750;color:var(--blue-800);letter-spacing:-.5px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .stat .v{color:var(--blue-200)}}
+:root[data-theme="dark"] .stat .v{color:var(--blue-200)}
+
+/* ---------- PANEL ---------- */
+.panel{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:20px;box-shadow:var(--sh2)}
+.panel+.panel{margin-top:16px}
+
+/* ---------- BOX CALLOUT ---------- */
+.box{
+  background:linear-gradient(135deg,var(--acs),var(--card2));
+  border:1px solid var(--bds);border-left:5px solid var(--ac);
+  padding:14px 18px;border-radius:var(--r2);margin:14px 0;
+}
+.box b{color:var(--blue-800)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .box b{color:var(--blue-200)}}
+:root[data-theme="dark"] .box b{color:var(--blue-200)}
+
+/* ---------- FORM ---------- */
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:10px 0}
+label.fld{display:flex;flex-direction:column;gap:5px;font-size:.82rem;font-weight:650;color:var(--mut)}
+input,select,textarea{
+  background:var(--card2);color:var(--tx);border:1.5px solid var(--bd);border-radius:var(--r3);
+  padding:9px 11px;font:inherit;width:110px;transition:border-color .18s,box-shadow .18s;
+}
+textarea{width:100%;resize:vertical;min-height:80px}
+select{width:auto}
+input:focus,select:focus,textarea:focus{outline:0;border-color:var(--ac);box-shadow:0 0 0 4px color-mix(in srgb,var(--ac) 18%,transparent)}
+
+/* ---------- TOMBOL ---------- */
+.btn{
+  background:linear-gradient(135deg,var(--ac),var(--blue-500));color:#fff;border:0;border-radius:var(--r3);
+  padding:10px 18px;cursor:pointer;font:inherit;font-weight:650;box-shadow:var(--sh1);
+  transition:transform .16s,box-shadow .16s,filter .16s;
+}
+.btn:hover{transform:translateY(-1px);box-shadow:var(--sh2);filter:brightness(1.05)}
+.btn:active{transform:translateY(0)}
+.btn:disabled{opacity:.55;cursor:not-allowed;transform:none;filter:none}
+.btn.ghost{background:var(--card);color:var(--ac);border:1.5px solid var(--bds);box-shadow:none}
+.btn.ghost:hover{border-color:var(--ac);filter:none}
+.btn.soft{background:var(--acs);color:var(--ac);box-shadow:none}
+.btn.soft:hover{filter:brightness(.97)}
+.btn.danger{background:linear-gradient(135deg,#dc2626,#f43f5e)}
+.btn.sm{padding:7px 13px;font-size:.86rem;border-radius:8px}
+
+/* ---------- CANVAS ---------- */
+.canvas-wrap{
+  background:var(--card);border:1px solid var(--bd);border-radius:var(--r2);
+  padding:8px;box-shadow:var(--sh1);margin:10px 0 4px;
+}
+canvas{width:100%;max-width:100%;height:auto;display:block;border-radius:9px;touch-action:manipulation}
+.hint{color:var(--mut);font-size:.88rem;margin-top:8px}
+.hint b{color:var(--tx)}
+
+/* ---------- TABEL ---------- */
+.scroll{overflow-x:auto;border:1px solid var(--bd);border-radius:var(--r2);background:var(--card);margin:10px 0}
+table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:320px}
+th{
+  background:linear-gradient(135deg,var(--ac),var(--blue-700));color:#fff;text-align:left;
+  padding:10px 12px;font-weight:650;white-space:nowrap;position:sticky;top:0;
+}
+td{border-bottom:1px solid var(--bd);padding:9px 12px;text-align:left;white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover td{background:var(--card2)}
+tfoot td{background:var(--acs);font-weight:700;color:var(--blue-900)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) tfoot td{color:var(--blue-100)}}
+:root[data-theme="dark"] tfoot td{color:var(--blue-100)}
+
+/* ---------- ACCORDION (CONTOH SOAL) ---------- */
+details{
+  background:var(--card);border:1px solid var(--bd);border-radius:var(--r2);padding:0;margin:10px 0;overflow:hidden;
+  box-shadow:var(--sh1);transition:border-color .2s;
+}
+details[open]{border-color:var(--bds)}
+summary{
+  cursor:pointer;font-weight:650;padding:14px 44px 14px 16px;list-style:none;position:relative;
+  background:linear-gradient(135deg,var(--card2),var(--card));color:var(--blue-900);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) summary{color:var(--blue-100)}}
+:root[data-theme="dark"] summary{color:var(--blue-100)}
+summary::-webkit-details-marker{display:none}
+summary::after{
+  content:"+";position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  width:24px;height:24px;border-radius:50%;display:grid;place-items:center;
+  background:var(--acs);color:var(--ac);font-weight:800;font-size:1rem;
+}
+details[open] summary::after{content:"\2212";background:var(--ac);color:#fff}
+details .isi{padding:2px 16px 16px;border-top:1px dashed var(--bd);color:var(--tx)}
+details .isi p:last-child{margin-bottom:0}
+
+/* ---------- LATIHAN ---------- */
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 18px}
+.tabs button{
+  background:var(--card);border:1.5px solid var(--bd);color:var(--mut);font:inherit;font-size:.88rem;font-weight:600;
+  padding:8px 15px;border-radius:999px;cursor:pointer;transition:all .18s;
+}
+.tabs button:hover{border-color:var(--ac);color:var(--ac)}
+.tabs button[aria-selected="true"]{background:linear-gradient(135deg,var(--ac),var(--blue-500));color:#fff;border-color:transparent;box-shadow:var(--sh1)}
+
+.soal{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:16px 18px;box-shadow:var(--sh1);margin-bottom:14px}
+.soal .no{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:9px;background:var(--acs);color:var(--ac);font-weight:800;font-size:.86rem;margin-right:8px}
+.soal .t{font-weight:650;line-height:1.5}
+.opts{display:grid;gap:8px;margin-top:12px}
+.opt{
+  display:flex;align-items:center;gap:10px;background:var(--card2);border:1.5px solid var(--bd);
+  border-radius:var(--r3);padding:11px 13px;cursor:pointer;font-size:.93rem;transition:all .16s;
+}
+.opt:hover{border-color:var(--ac);background:var(--acs)}
+.opt input{width:17px;height:17px;accent-color:var(--ac);flex:0 0 17px;cursor:pointer}
+.opt.sel{border-color:var(--ac);background:var(--acs);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 12%,transparent)}
+.opt.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 13%,transparent)}
+.opt.bad{border-color:var(--g);background:color-mix(in srgb,var(--g) 12%,transparent)}
+.opt .k{
+  width:24px;height:24px;flex:0 0 24px;border-radius:7px;display:grid;place-items:center;font-weight:700;font-size:.8rem;
+  background:var(--blue-100);color:var(--blue-800);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .opt .k{background:#24447f;color:#dbeafe}}
+:root[data-theme="dark"] .opt .k{background:#24447f;color:#dbeafe}
+.opt.sel .k{background:var(--ac);color:#fff}
+.opt.ok .k{background:var(--ok);color:#fff}
+.opt.bad .k{background:var(--g);color:#fff}
+.penjelasan{margin-top:12px;padding:12px 14px;background:color-mix(in srgb,var(--ac) 8%,transparent);
+  border-left:4px solid var(--ac);border-radius:8px;font-size:.9rem}
+
+.hasil{text-align:center;padding:8px 4px 4px}
+.ring{
+  width:132px;height:132px;border-radius:50%;margin:6px auto 12px;display:grid;place-items:center;
+  font-size:1.75rem;font-weight:800;color:var(--blue-800);position:relative;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ring{color:var(--blue-100)}}
+:root[data-theme="dark"] .ring{color:var(--blue-100)}
+.ring small{display:block;font-size:.68rem;font-weight:600;color:var(--mut);letter-spacing:.05em;text-transform:uppercase}
+.bar{height:10px;border-radius:999px;background:var(--bd);overflow:hidden;margin:10px 0 4px}
+.bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--blue-500),var(--ac))}
+
+.pill{display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:999px;font-size:.78rem;font-weight:700}
+.pill.ok{background:color-mix(in srgb,var(--ok) 16%,transparent);color:var(--ok)}
+.pill.no{background:color-mix(in srgb,var(--g) 15%,transparent);color:var(--g)}
+
+/* ---------- MODAL ---------- */
+.modal{position:fixed;inset:0;z-index:90;display:none;place-items:center;padding:16px;
+  background:rgba(10,22,54,.55);backdrop-filter:blur(3px)}
+.modal.open{display:grid}
+.modal-box{
+  background:var(--card);border:1px solid var(--bd);border-radius:var(--r);width:min(520px,100%);
+  box-shadow:var(--sh3);padding:22px;max-height:88vh;overflow:auto;
+}
+.modal-box h3{margin-top:0}
+.modal-act{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;margin-top:18px}
+
+/* ---------- TOAST ---------- */
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:22px;z-index:120;display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none}
+.toast{
+  background:linear-gradient(135deg,var(--blue-800),var(--blue-600));color:#fff;
+  padding:10px 18px;border-radius:999px;font-size:.88rem;font-weight:600;box-shadow:var(--sh3);
+  animation:pop .3s ease;max-width:92vw;text-align:center;
+}
+.toast.err{background:linear-gradient(135deg,#b91c1c,#e11d48)}
+.toast.ok{background:linear-gradient(135deg,#047857,#059669)}
+@keyframes pop{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+footer{
+  text-align:center;color:var(--mut);font-size:.8rem;padding:26px 18px 34px;
+  border-top:1px solid var(--bd);margin-top:10px;background:var(--card);
+}
+footer b{color:var(--blue-800)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) footer b{color:var(--blue-200)}}
+:root[data-theme="dark"] footer b{color:var(--blue-200)}
+
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+@media (max-width:640px){
+  .brand h1{font-size:1.12rem}
+  .brand p{font-size:.8rem}
+  .topbar-in{padding:16px}
+  main{padding:18px 14px 48px}
+  .panel{padding:16px}
+  .opt{padding:10px 11px}
+  input,select{width:96px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media print{
+  body{background:#fff}
+  .nav,.topbar-act,#toast,.btn,.back,.tabs{display:none!important}
+  .topbar{background:#1d4ed8!important;box-shadow:none}
+  .card,.panel,.soal,details{box-shadow:none;break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <div class="brand">
+      <div class="brand-ico">📘</div>
+      <div>
+        <h1>📘 Pembelajaran Fungsi</h1>
+        <p>Dashboard materi: Fungsi Linear, Kuadrat, Komposisi &amp; Invers, Program Linear</p>
+      </div>
+    </div>
+    <div class="topbar-act">
+      <button class="chip" id="btnSiswa" onclick="openSiswa()" title="Klik untuk mengisi identitas siswa">
+        <span>👤</span><span id="who">Identitas Siswa</span>
+      </button>
+      <button class="chip" id="btnStatus" onclick="cekServer()" title="Status server & database">
+        <span class="dot" id="dotStatus"></span><span id="statusTx">Menyambung…</span>
+      </button>
+      <button class="chip" onclick="toggleTheme()" title="Ganti tema terang / gelap">🌓 Tema</button>
+    </div>
+  </div>
+</header>
+
+<nav class="nav"><div class="nav-in" id="nav"></div></nav>
+
+<main id="app"></main>
+
+<footer>Proyek AST · Website Pembelajaran</footer>
+
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box" id="modalBox" role="dialog" aria-modal="true"></div>
+</div>
+
+<div id="toast" aria-live="polite"></div>
+
+<script>
+'use strict';
+const $=s=>document.querySelector(s);
+const app=$('#app');
+const fmt=n=>{n=Math.round(n*1e4)/1e4;return String(n)};
+function lin(a,b){ // string for ax+b
+  if(a===0) return fmt(b);
+  let s=(a===1?'':a===-1?'-':fmt(a))+'x';
+  if(b>0)s+=' + '+fmt(b);else if(b<0)s+=' − '+fmt(-b);
+  return s;
+}
+
+/* ========================= TOAST ========================= */
+function toast(msg,kind=''){
+  const el=document.createElement('div');
+  el.className='toast'+(' '+kind);el.textContent=msg;
+  $('#toast').appendChild(el);
+  setTimeout(()=>{el.style.transition='opacity .35s';el.style.opacity='0';
+    setTimeout(()=>el.remove(),380)},2600);
+}
+
+/* ========================= TEMA ========================= */
+function applyTheme(t){
+  if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t);}
+  else{document.documentElement.removeAttribute('data-theme');}
+  try{localStorage.setItem('asas_theme',t||'auto')}catch(e){}
+}
+function toggleTheme(){
+  const cur=localStorage.getItem('asas_theme')||'auto';
+  const next=cur==='dark'?'light':cur==='light'?'auto':'dark';
+  applyTheme(next);
+  toast('Tema: '+({dark:'gelap',light:'terang',auto:'otomatis'})[next]);
+  redrawAll();
+}
+function redrawAll(){ // canvas perlu digambar ulang saat warna berubah
+  for(const id of ['p1','p2']){const cv=document.getElementById(id+'cv');if(cv)draw(id,id==='p2');}
+}
+
+/* ========================= PENYIMPANAN =========================
+   Data disimpan ke server (database) bila tersedia.
+   Bila halaman dibuka langsung dari file (tanpa server),
+   data tetap tersimpan di localStorage browser.
+   =========================================================== */
+const LS={k:{s:'asas_siswa',p:'asas_progress',a:'asas_attempts'}};
+const Store={
+  online:false,
+  me:null,
+  progress:{},
+  attempts:[],
+  lsGet(k,d){try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}},
+  lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}},
+  memuat(){ // baca data lokal saat start
+    this.me=this.lsGet(LS.k.s,null);
+    this.progress=this.lsGet(LS.k.p,{});
+    this.attempts=this.lsGet(LS.k.a,[]);
+  },
+  async cek(){
+    try{
+      const r=await fetch('api/health',{cache:'no-store'});
+      if(!r.ok)throw 0;
+      const j=await r.json();
+      this.online=true;
+      $('#statusTx').textContent='Tersimpan';
+      $('#dotStatus').classList.remove('off');
+      return j;
+    }catch(e){
+      this.online=false;
+      $('#statusTx').textContent='Tersimpan lokal';
+      $('#dotStatus').classList.add('off');
+      return null;
+    }
+  },
+  async simpanSiswa(d){
+    this.me=d;this.lsSet(LS.k.s,d);
+    if(!this.online)return d;
+    const r=await fetch('api/students',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});
+    const j=await r.json();
+    if(!j.ok)throw new Error(j.error||'Gagal menyimpan identitas');
+    this.me=j.data;this.lsSet(LS.k.s,this.me);
+    await this.muatDariServer();
+    return this.me;
+  },
+  async muatDariServer(){
+    if(!this.online||!this.me)return;
+    try{
+      const rp=await fetch('api/progress/'+this.me.id);
+      if(rp.ok){const jp=await rp.json();this.progress=jp.data||{};this.lsSet(LS.k.p,this.progress);}
+      const ra=await fetch('api/attempts/'+this.me.id);
+      if(ra.ok){const ja=await ra.json();this.attempts=ja.data||[];this.lsSet(LS.k.a,this.attempts);}
+    }catch(e){}
+  },
+  async simpanProgress(section,data){
+    this.progress[section]={...(this.progress[section]||{}),...data};
+    this.lsSet(LS.k.p,this.progress);
+    if(!this.online||!this.me)return;
+    try{
+      await fetch('api/progress',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({student_id:this.me.id,items:[{section,data:this.progress[section]}]})});
+    }catch(e){}
+  },
+  async impor(obj){
+    // Gabungkan data dari berkas ekspor (server atau lokal) ke penyimpanan perangkat ini.
+    const d=(obj&&obj.data)||(obj&&obj.lokal)||obj;
+    const daftar=Array.isArray(d.attempts)?d.attempts:(Array.isArray(d.attempt)?d.attempt:[]);
+    const lama=this.attempts||[];
+    let baru=0;
+    const sudah=new Set(lama.map(x=>[x.nama,x.section,x.score,x.total,x.created_at].join('|')));
+    for(const a of daftar){
+      const k=[a.nama||(obj.lokal&&obj.lokal.siswa&&obj.lokal.siswa.nama)||'Tanpa nama',
+               a.section,a.score,a.total,a.created_at].join('|');
+      if(sudah.has(k))continue;
+      sudah.add(k);
+      lama.push({section:a.section,score:a.score,total:a.total,
+        details:Array.isArray(a.details)?a.details:[],nama:a.nama||'Tanpa nama',kelas:a.kelas||'',
+        created_at:a.created_at||new Date().toISOString()});
+      baru++;
+    }
+    lama.sort((x,y)=>new Date(y.created_at)-new Date(x.created_at));
+    this.attempts=lama;this.lsSet(LS.k.a,lama);
+    if(d.progress)for(const [k,v] of Object.entries(d.progress))this.progress[k]=v;
+    if(d.students&&d.students.length)this.lsSet('asar_siswa_daripada',d.students);
+    this.lsSet(LS.k.p,this.progress);
+    return baru;
+  },
+  async simpanNilai(section,score,total,details){
+    const me=this.me||{};
+    const rec={section,score,total,details,nama:me.nama||'Tanpa nama',kelas:me.kelas||'',
+      created_at:new Date().toISOString()};
+    this.attempts.unshift(rec);this.lsSet(LS.k.a,this.attempts);
+    if(!this.online||!this.me)return null;
+    try{
+      const r=await fetch('api/attempts',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({student_id:this.me.id,section,score,total,details})});
+      const j=await r.json();
+      if(j.ok){this.attempts[0]=j.data;this.lsSet(LS.k.a,this.attempts);return j.data;}
+    }catch(e){}
+    return null;
+  }
+};
+function cekServer(){ // dipanggil dari tombol status
+  Store.cek().then(j=>{
+    if(j)toast('Server aktif · '+j.students+' siswa · '+j.attempts+' nilai tercatat','ok');
+    else toast('Server tidak aktif — data tersimpan di browser ini saja','err');
+  });
+}
+
+/* ---------- Plotter (grafik fungsi) ---------- */
+function plotterHTML(id,quad){
+  return `<div class="row">y = ${quad?`<input id="${id}a" type="number" value="1" step="any" aria-label="a">x² +`:''}
+  <input id="${id}${quad?'b':'a'}" type="number" value="${quad?-2:2}" step="any" aria-label="${quad?'b':'a'}">x +
+  <input id="${id}${quad?'c':'b'}" type="number" value="${quad?-3:1}" step="any" aria-label="${quad?'c':'b'}">
+  <button class="btn" onclick="draw('${id}',${quad})">Gambar grafik</button>
+  <button class="btn ghost" onclick="resetPlot('${id}',${quad})">Reset</button></div>
+  <div class="canvas-wrap"><canvas id="${id}cv" width="640" height="400" role="img" aria-label="Grafik fungsi"></canvas></div>
+  <div id="${id}info" class="hint"></div>`;
+}
+function resetPlot(id,quad){
+  const v=quad?[1,-2,-3]:[2,1];
+  const keys=quad?['a','b','c']:['a','b'];
+  keys.forEach((k,i)=>{const el=$('#'+id+k);if(el)el.value=v[i]});
+  draw(id,quad);
+}
+function draw(id,quad){
+  const v=k=>parseFloat($('#'+id+k).value)||0;
+  const a=quad?v('a'):0,b=quad?v('b'):v('a'),c=quad?v('c'):v('b');
+  const cv=$('#'+id+'cv'),ctx=cv.getContext('2d'),W=cv.width,H=cv.height;
+  const st=getComputedStyle(document.documentElement);
+  const col=n=>st.getPropertyValue(n).trim();
+  const R=10,sx=x=>(x+R)/(2*R)*W,sy=y=>H-(y+R)/(2*R)*H;
+  ctx.clearRect(0,0,W,H);ctx.lineWidth=1;ctx.strokeStyle=col('--bd');ctx.fillStyle=col('--mut');ctx.font='11px sans-serif';
+  for(let i=-R;i<=R;i++){ctx.beginPath();ctx.moveTo(sx(i),0);ctx.lineTo(sx(i),H);ctx.moveTo(0,sy(i));ctx.lineTo(W,sy(i));ctx.stroke();
+    if(i%2===0&&i!==0){ctx.fillText(i,sx(i)+2,sy(0)+12);ctx.fillText(i,sx(0)+3,sy(i)-2)}}
+  ctx.strokeStyle=col('--tx');ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(sx(-R),sy(0));ctx.lineTo(sx(R),sy(0));ctx.moveTo(sx(0),sy(-R));ctx.lineTo(sx(0),sy(R));ctx.stroke();
+  ctx.strokeStyle=col('--g');ctx.lineWidth=2.5;ctx.beginPath();
+  let first=true;
+  for(let px=0;px<=W;px++){const x=px/W*2*R-R,y=a*x*x+b*x+c;
+    if(first){ctx.moveTo(px,sy(y));first=false}else ctx.lineTo(px,sy(y))}
+  ctx.stroke();
+  let t=`f(x) = ${a?fmt(a)+'x² ':''}${b?(a&&b>0?'+ ':'')+fmt(b)+'x ':''}${c?(c>0&&(a||b)?'+ ':'')+fmt(c):''}. Titik potong sumbu-y: (0, ${fmt(c)}).`;
+  if(a){const D=b*b-4*a*c;t+=` Diskriminan D = ${fmt(D)}; puncak (${fmt(-b/(2*a))}, ${fmt(-D/(4*a))}).`}
+  else if(b)t+=` Gradien m = ${fmt(b)}; titik potong sumbu-x: (${fmt(-c/b)}, 0).`;
+  $('#'+id+'info').textContent=t;
+  // simpan pilihan siswa ke database
+  Store.simpanProgress(quad?'kb2':'kb1',quad?{a:a,b:b,c:c}:{a:b,b:c});
+}
+
+/* ---------- Kalkulator komposisi & invers ---------- */
+const FN={f:[1,3],g:[4,5],h:[3,-9]};
+function calcHTML(){
+  const inp=n=>`<div class="row"><b>${n}(x) =</b><input id="${n}a" type="number" value="${FN[n][0]}" step="any" aria-label="${n} gradien">x +<input id="${n}b" type="number" value="${FN[n][1]}" step="any" aria-label="${n} konstanta"></div>`;
+  return inp('f')+inp('g')+inp('h')+`<div class="row">Hitung nilai di x = <input id="cx" type="number" value="2" step="any"><button class="btn" onclick="calc()">Hitung</button>
+  <button class="btn ghost" onclick="resetCalc()">Reset</button></div><div id="cout" class="scroll"></div>`;
+}
+function resetCalc(){
+  for(const n of ['f','g','h']){$('#'+n+'a').value=FN[n][0];$('#'+n+'b').value=FN[n][1]}
+  $('#cx').value=2;calc();
+}
+function calc(){
+  const F={};for(const n of ['f','g','h'])F[n]=[parseFloat($('#'+n+'a').value)||0,parseFloat($('#'+n+'b').value)||0];
+  const x0=parseFloat($('#cx').value)||0;
+  const comp=names=>{ // apply right to left: returns [a,b]
+    let a=1,b=0;
+    for(let i=names.length-1;i>=0;i--){const [p,q]=F[names[i]];a=p*a;b=p*b+q}
+    return [a,b]};
+  const combos=['fg','gf','fh','hf','gh','hg','fgh','fhg','gfh','ghf','hfg','hgf'];
+  let rows=combos.map(s=>{const [a,b]=comp(s.split(''));
+    const nm=s.split('').join(' ∘ ');
+    return `<tr><td>(${nm})(x)</td><td>${lin(a,b)}</td><td>${fmt(a*x0+b)}</td></tr>`}).join('');
+  let inv=['f','g','h'].map(n=>{const [a,b]=F[n];
+    return a===0?`<tr><td>${n}⁻¹(x)</td><td colspan="2">tidak ada (a = 0)</td></tr>`:
+    `<tr><td>${n}⁻¹(x)</td><td>${lin(1/a,-b/a)}</td><td>${fmt((x0-b)/a)}</td></tr>`}).join('');
+  $('#cout').innerHTML=`<h3>Komposisi fungsi</h3><table><tr><th>Bentuk</th><th>Hasil</th><th>Nilai di x = ${fmt(x0)}</th></tr>${rows}</table>
+  <h3>Invers fungsi (f′, g′, h′ pada papan = f⁻¹, g⁻¹, h⁻¹)</h3><table><tr><th>Bentuk</th><th>Hasil</th><th>Nilai di x = ${fmt(x0)}</th></tr>${inv}</table>`;
+  Store.simpanProgress('kb3',{f:F.f,g:F.g,h:F.h,x:x0});
+}
+
+/* ---------- Bank soal latihan ---------- */
+const QB={
+  kb1:{nama:'Fungsi Linear',soal:[
+    {q:'Gradien dari fungsi f(x) = 5x − 2 adalah ...',o:['5','−2','2','−5'],a:0},
+    {q:'Titik potong sumbu-y dari f(x) = 5x − 2 adalah ...',o:['(0, 5)','(0, −2)','(−2, 0)','(2, 0)'],a:1},
+    {q:'Garis melalui titik (1, 4) dan (3, 10). Gradien garis tersebut ...',o:['2','3','4','6'],a:1},
+    {q:'Persamaan garis yang melalui (2, 5) dan (4, 9) adalah ...',o:['y = 2x + 1','y = 2x − 1','y = x + 3','y = 4x − 3'],a:0},
+    {q:'Fungsi f(x) = 2x + 1 memotong sumbu-x pada titik ...',o:['(−½, 0)','(½, 0)','(0, −½)','(−1, 0)'],a:0},
+    {q:'Gradien sebuah garis bernilai negatif. Grafiknya ...',o:['miring ke bawah (nilai x bertambah, y berkurang)','miring ke atas','horizontal','vertikal'],a:0}
+  ]},
+  kb2:{nama:'Fungsi Kuadrat',soal:[
+    {q:'Diskriminan dari x² − 4x + 4 = 0 adalah ...',o:['0','4','16','−4'],a:0},
+    {q:'Puncak parabola f(x) = x² − 2x − 3 berada di titik ...',o:['(1, −4)','(−1, 0)','(3, 0)','(1, 4)'],a:0},
+    {q:'Pada f(x) = ax² + bx + c dengan a < 0, parabola ...',o:['terbuka ke bawah','terbuka ke atas','berbentuk lingkaran','berbentuk garis lurus'],a:0},
+    {q:'Akar-akar persamaan x² − 5x + 6 = 0 adalah ...',o:['x = 2 dan x = 3','x = −2 dan x = −3','x = 1 dan x = 6','x = −1 dan x = −6'],a:0},
+    {q:'Sumbu simetri parabola y = x² − 2x − 3 adalah ...',o:['x = 1','x = −1','x = 3','x = 0'],a:0},
+    {q:'Jika diskriminan D > 0, maka persamaan kuadrat ...',o:['memotong sumbu-x di dua titik','menyinggung sumbu-x','tidak memotong sumbu-x','selalu bernilai positif'],a:0}
+  ]},
+  kb3:{nama:'Komposisi & Invers',soal:[
+    {q:'Diketahui f(x) = x + 3 dan g(x) = 4x + 5. Bentuk (f∘g)(x) adalah ...',o:['4x + 8','4x + 17','x + 8','4x + 2'],a:0},
+    {q:'Dengan f dan g yang sama, bentuk (g∘f)(x) adalah ...',o:['4x + 17','4x + 8','x + 17','4x + 12'],a:0},
+    {q:'Invers dari h(x) = 3x − 9 adalah ...',o:['h⁻¹(x) = (x + 9)/3','h⁻¹(x) = (x − 9)/3','h⁻¹(x) = 3x + 9','h⁻¹(x) = x/3 − 3'],a:0},
+    {q:'Secara umum, jika f(x) = ax + b maka f⁻¹(x) = ...',o:['(x − b)/a','ax + b','a/x + b','(x + b)/a'],a:0},
+    {q:'Pernyataan yang benar tentang komposisi fungsi ...',o:['f∘g tidak selalu sama dengan g∘f','f∘g selalu sama dengan g∘f','komposisi hanya untuk fungsi kuadrat','komposisi sama dengan invers'],a:0},
+    {q:'Untuk f yang memiliki invers, berlaku ...',o:['f⁻¹(f(x)) = x','f⁻¹(f(x)) = f(x)','f⁻¹(f(x)) = x + 1','tidak ada yang benar'],a:0}
+  ]},
+  kb4:{nama:'Program Linear',soal:[
+    {q:'Maksimumkan Z = 3x + 2y dengan x + y ≤ 4, x ≤ 3, x ≥ 0, y ≥ 0. Nilai maksimum Z ...',o:['11','9','8','4'],a:0},
+    {q:'Pada soal sebelumnya, titik pojok yang menghasilkan Z terbesar adalah ...',o:['(3, 1)','(0, 4)','(0, 0)','(3, 0)'],a:0},
+    {q:'Langkah pertama penyelesaian program linear adalah ...',o:['menerjemahkan soal cerita menjadi model matematika','segera menghitung gradien garis','menggambar parabola','mencari diskriminan'],a:0},
+    {q:'Daerah penyelesaian pada program linear berbentuk ...',o:['daerah tertutup (poligon)','lingkaran','parabola','garis tak hingga'],a:0},
+    {q:'Untuk fungsi objektif Z = 3x + 2y, nilai Z di titik (3, 1) adalah ...',o:['11','5','9','7'],a:0},
+    {q:'Nilai minimum Z pada daerah x + y ≤ 4, x ≥ 0, y ≥ 0 adalah ...',o:['0','11','8','9'],a:0}
+  ]}
+};
+let soalAktif=[],kunciAktif='kb1';
+
+function acak(a){const b=a.slice();for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
+function viewLatihan(){
+  const k=['kb1','kb2','kb3','kb4'].find(x=>x===kunciAktif)||'kb1';
+  const bank=QB[k].soal;
+  return `<div class="page-head"><h2>🧩 Latihan Soal</h2>
+    <p class="sub">Jawab soal pilihan ganda, nilai dihitung otomatis, dan hasil attempt langsung tersimpan ke database sekolah.</p></div>
+    <div class="tabs" role="tablist">${Object.entries(QB).map(([key,v])=>
+      `<button role="tab" aria-selected="${key===k}" onclick="pilihLatihan('${key}')">${v.nama}</button>`).join('')}</div>
+    <div class="panel">
+      <div class="row" style="justify-content:space-between">
+        <div><b>Latihan: ${QB[k].nama}</b><div class="hint">${bank.length} soal tersedia · jawaban langsung dinilai.</div></div>
+        <div class="row" style="margin:0">
+          <button class="btn" onclick="mulaiLatihan()">Mulai / Acak ulang</button>
+        </div>
+      </div>
+      <div id="areaLatihan"></div>
+    </div>`;
+}
+function pilihLatihan(k){kunciAktif=k;soalAktif=[];go('latihan')}
+function mulaiLatihan(){
+  const bank=QB[kunciAktif].soal;
+  soalAktif=acak(bank).slice(0,5);
+  renderSoal();
+}
+function renderSoal(){
+  const el=$('#areaLatihan');if(!el)return;
+  if(!soalAktif.length){el.innerHTML=`<p class="hint">Tekan <b>Mulai / Acak ulang</b> untuk mengambil 5 soal secara acak.</p>`;return}
+  el.innerHTML=`<form id="formSoal" onsubmit="return nilaiLatihan()">`+soalAktif.map((s,i)=>`
+    <div class="soal">
+      <div class="t"><span class="no">${i+1}</span>${s.q}</div>
+      <div class="opts">${s.o.map((o,j)=>`
+        <label class="opt" id="o${i}_${j}">
+          <input type="radio" name="s${i}" value="${j}" required>
+          <span class="k">${'ABCD'[j]}</span><span>${o}</span>
+        </label>`).join('')}</div>
+      <div class="penjelasan" id="pj${i}" hidden></div>
+    </div>`).join('')+`
+    <div class="row"><button class="btn" type="submit">Kumpulkan Jawaban</button>
+    <button class="btn ghost" type="button" onclick="mulaiLatihan()">Acak ulang</button></div></form>`;
+  for(let i=0;i<soalAktif.length;i++){
+    document.querySelectorAll(`input[name="s${i}"]`).forEach(r=>r.onchange=()=>{
+      document.querySelectorAll(`#areaLatihan .opt`).forEach(l=>l.classList.remove('sel'));
+      document.getElementById('o'+i+'_'+r.value).classList.add('sel');
+    });
+  }
+}
+function nilaiLatihan(){
+  let score=0;const details=[];
+  soalAktif.forEach((s,i)=>{
+    const pick=document.querySelector(`input[name="s${i}"]:checked`);
+    const val=pick?Number(pick.value):-1;
+    const benar=val===s.a;if(benar)score++;
+    s.o.forEach((_,j)=>{
+      const el=document.getElementById('o'+i+'_'+j);if(!el)return;
+      el.classList.remove('sel');
+      if(j===s.a)el.classList.add('ok');else if(j===val)el.classList.add('bad');
+    });
+    const pj=document.getElementById('pj'+i);
+    pj.hidden=false;
+    pj.innerHTML=(benar?'<b style="color:var(--ok)">✓ Benar.</b> ':'<b style="color:var(--g)">✗ Belum tepat.</b> ')
+      +'Jawaban: <b>'+'ABCD'[s.a]+' — '+s.o[s.a]+'</b>'
+      +(val>=0&&!benar?'<br>Jawabanmu: '+'ABCD'[val]+' — '+s.o[val]:'')
+      +'<br><span class="hint">Pembahasan: '+(KETERANGAN[kunciAktif]&&KETERANGAN[kunciAktif][i]||'')+'</span>';
+    details.push({no:i+1,soal:s.q,pilihan:s.o[val]??null,jawaban:s.o[s.a],benar});
+  });
+  const total=soalAktif.length,pct=Math.round(score/total*100);
+  Store.simpanNilai('latihan-'+kunciAktif,score,total,details).then(()=>{
+    toast('Nilai tersimpan: '+score+'/'+total+(Store.online?' ke database':' di browser'),'ok');
+  });
+  const warna=pct>=80?'var(--ok)':pct>=60?'var(--warn)':'var(--g)';
+  $('#areaLatihan').insertAdjacentHTML('afterbegin',
+    `<div class="hasil"><div class="ring" style="background:conic-gradient(${warna} ${pct*3.6}deg, var(--bd) 0)">
+      <div style="background:var(--card);width:104px;height:104px;border-radius:50%;display:grid;place-items:center">
+        ${pct}<small style="position:static">Nilai</small></div></div>
+      <p><b>${score} benar dari ${total}</b>${pct>=80?' — sangat baik!':pct>=60?' — perlu sedikit latihan lagi.':' — ayo ulangi materinya.'}</p>
+      <p class="hint">${Store.online?'Tersimpan di database sekolah.':'Tersimpan di browser ini (jalankan server untuk simpan permanen).'} ${Store.me?'Siswa: '+esc(Store.me.nama):''}</p></div>`);
+  window.scrollTo({top:0,behavior:'smooth'});
+  return false;
+}
+const KETERANGAN={
+  kb1:['m adalah koefisien x sehingga m = 5.','Sumbu-x bernilai 0 saat x = 0.','m = (10−4)/(3−1) = 6/2 = 2.','y − 5 = 2(x − 2) sehingga y = 2x + 1.','2x + 1 = 0 sehingga x = −½.','Gradien negatif berarti setiap x bertambah 1, y berkurang.'],
+  kb2:['D = (−4)² − 4(1)(4) = 16 − 16 = 0.','Puncak di (−b/2a, −D/4a) = (1, −4).','Tanda a menentukan arah bukaan parabola.','(x − 2)(x − 3) = 0.','Sumbu simetri x = −b/2a = 1.','D > 0 berarti dua akar real berbeda.'],
+  kb3:['(f∘g)(x) = (4x + 5) + 3 = 4x + 8.','(g∘f)(x) = 4(x + 3) + 5 = 4x + 17.','y = 3x − 9 → x = (y + 9)/3.','Tukar x dan y lalu selesaikan untuk y.','Komposisi tidak komutatif.','Invers adalah kebalikan fungsi.'],
+  kb4:['Z terbesar dari titik pojok adalah 11.','Z(3,1) = 3(3) + 2(1) = 11.','Modeling dilakukan sebelum menghitung.','Daerah penyelesaian berbentuk poligon tertutup.','Z = 3·3 + 2·1 = 11.','Di titik (0,0) diperoleh Z = 0.']
+};
+
+/* ---------- Konten tiap KB ---------- */
+const soal=(q,a)=>`<details><summary>${q}</summary><div class="isi"><p>${a}</p></div></details>`;
+const VIEWS={
+  kb1:{t:'KB 1 · Fungsi Linear',ico:'📈',h:()=>`
+  <div class="box"><b>Bentuk umum:</b> f(x) = mx + c, dengan m = gradien dan c = titik potong sumbu-y.</div>
+  <p>Grafik fungsi linear berupa garis lurus. Gradien dari dua titik: m = (y₂ − y₁)/(x₂ − x₁). Titik potong sumbu-x didapat dari f(x) = 0.</p>
+  <h3>Grafik interaktif</h3>${plotterHTML('p1',false)}
+  <h3>Contoh soal</h3>
+  ${soal('Tentukan gradien dan titik potong sumbu-y dari f(x) = 2x + 1.','m = 2, memotong sumbu-y di (0, 1), memotong sumbu-x di (−½, 0).')}
+  ${soal('Garis melalui (1, 3) dan (3, 7). Tentukan persamaannya.','m = (7−3)/(3−1) = 2. y − 3 = 2(x − 1) → y = 2x + 1.')}`,
+    i:()=>{pulihkanPlot('p1',false);draw('p1',false)}},
+  kb2:{t:'KB 2 · Fungsi Kuadrat',ico:'📐',h:()=>`
+  <div class="box"><b>Bentuk umum:</b> f(x) = ax² + bx + c (a ≠ 0). Diskriminan D = b² − 4ac, sumbu simetri x = −b/2a, puncak (−b/2a, −D/4a).</div>
+  <p>Jika a &gt; 0 parabola terbuka ke atas, jika a &lt; 0 terbuka ke bawah. D &gt; 0: dua titik potong sumbu-x; D = 0: menyinggung; D &lt; 0: tidak memotong.</p>
+  <h3>Grafik interaktif</h3>${plotterHTML('p2',true)}
+  <h3>Contoh soal</h3>
+  ${soal('Tentukan puncak f(x) = x² − 2x − 3.','x = −b/2a = 1; f(1) = 1 − 2 − 3 = −4. Puncak (1, −4). Akar: x = −1 dan x = 3.')}`,
+    i:()=>{pulihkanPlot('p2',true);draw('p2',true)}},
+  kb3:{t:'KB 3 · Komposisi & Invers Fungsi',ico:'⛓️',h:()=>`
+  <div class="box"><b>Komposisi:</b> (f∘g)(x) = f(g(x)). Umumnya f∘g ≠ g∘f.<br><b>Invers:</b> jika f(x) = ax + b, maka f⁻¹(x) = (x − b)/a.</div>
+  <h3>Kalkulator</h3>
+  <p class="hint">Isi fungsi linear f, g, h (default sesuai papan tulis: f(x) = x + 3, g(x) = 4x + 5, h(x) = 3x − 9).</p>${calcHTML()}
+  <h3>Contoh soal</h3>
+  ${soal('Jika f(x) = x + 3 dan g(x) = 4x + 5, tentukan (f∘g)(x) dan (g∘f)(x).','(f∘g)(x) = (4x + 5) + 3 = 4x + 8. (g∘f)(x) = 4(x + 3) + 5 = 4x + 17.')}
+  ${soal('Tentukan invers h(x) = 3x − 9.','y = 3x − 9 → x = (y + 9)/3, jadi h⁻¹(x) = (x + 9)/3.')}`,
+    i:()=>{pulihkanCalc();calc()}},
+  kb4:{t:'KB 4 · Program Linear',ico:'📊',h:()=>`
+  <div class="box">Program linear mencari nilai maksimum/minimum fungsi objektif (mis. Z = px + qy) di daerah penyelesaian sistem pertidaksamaan linear.</div>
+  <ol><li>Ubah soal cerita menjadi model matematika (variabel, kendala, fungsi objektif).</li><li>Gambar garis tiap kendala dan arsir daerah penyelesaian.</li><li>Cari titik-titik pojok daerah.</li><li>Hitung Z di tiap titik pojok; ambil yang terbesar/terkecil.</li></ol>
+  <h3>Contoh soal</h3>
+  ${soal('Maksimumkan Z = 3x + 2y dengan x + y ≤ 4, x ≤ 3, x ≥ 0, y ≥ 0.','Titik pojok: (0,0), (3,0), (3,1), (0,4). Z = 0, 9, 11, 8. Maksimum Z = 11 di (3, 1).')}
+  <div class="row"><button class="btn" onclick="go('latihan')">✎ Kerjakan latihan Program Linear</button></div>`},
+  profil:{t:'Profil Pengembang',ico:'👤',h:()=>`
+  <div class="card"><p><b>Nama:</b> Oswald Tito <br><b>Kelas :</b> XI-RPL <br><b>Sekolah / Kampus:</b> SMK Bagimu Negriku<br><b>Proyek:</b> Website Pembelajaran Fungsi · 25 September 2026</p></div>`},
+  latihan:{t:'Latihan Soal',ico:'🧩',h:viewLatihan,i:renderSoal},
+  riwayat:{t:'Riwayat & Laporan Nilai',ico:'📈',h:viewRiwayat},
+  rekap:{t:'Rekap Kelas',ico:'📊',h:viewRekap}
+};
+function pulihkanPlot(id,quad){
+  const d=Store.progress[quad?'kb2':'kb1'];if(!d)return;
+  const keys=quad?['a','b','c']:['a','b'];
+  keys.forEach((k,i)=>{
+    const el=document.getElementById(id+k);
+    const val=quad?d[['a','b','c'][i]]:d[['a','b'][i]];
+    if(el&&typeof val==='number'&&!Number.isNaN(val))el.value=val;
+  });
+}
+function pulihkanCalc(){
+  const d=Store.progress.kb3;if(!d)return;
+  for(const n of ['f','g','h']){
+    if(Array.isArray(d[n])){$('#'+n+'a').value=d[n][0];$('#'+n+'b').value=d[n][1]}
+  }
+  if(typeof d.x==='number')$('#cx').value=d.x;
+}
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* ---------- Riwayat nilai ---------- */
+function viewRiwayat(){
+  const a=Store.attempts||[];
+  const me=Store.me;
+  const jml=a.length;
+  const rata=jml?Math.round(a.reduce((t,x)=>t+x.score/x.total*100,0)/jml):0;
+  const terbaik=jml?Math.round(Math.max(...a.map(x=>x.score/x.total*100))):0;
+  return `<div class="page-head"><h2>📈 Riwayat &amp; Laporan Nilai</h2>
+    <p class="sub">Semua nilai latihan yang pernah dikerjakan tersimpan otomatis dan bisa dicetak guru.</p></div>
+    <div class="stats">
+      <div class="stat"><p class="k">Siswa</p><p class="v" style="font-size:1rem">${me?esc(me.nama)+'<span class="hint"> · '+esc(me.kelas||'—')+'</span>':'<span class="hint">belum diisi</span>'}</p></div>
+      <div class="stat"><p class="k">Total latihan</p><p class="v">${jml}</p></div>
+      <div class="stat"><p class="k">Rata-rata</p><p class="v">${rata}%</p></div>
+      <div class="stat"><p class="k">Tertinggi</p><p class="v">${terbaik}%</p></div>
+    </div>
+    <div class="row"><button class="btn" onclick="cetakLaporan()">🖨 Cetak laporan</button>
+      <button class="btn ghost" onclick="ekspor()">⬇ Ekspor JSON</button>
+      <button class="btn ghost" onclick="document.getElementById('fileImpor').click()">⬆ Impor JSON</button>
+      <button class="btn soft" onclick="go('rekap')">📊 Rekap kelas</button>
+      <input type="file" id="fileImpor" accept="application/json,.json" hidden onchange="imporBerkas(this)"></div>
+    ${!Store.online?'<div class="box" style="margin-top:14px"><b>Mode statis (tanpa server).</b> Data tersimpan di browser perangkat ini. Untuk menghimpun nilai seluruh kelas: setiap siswa menekan <b>⬇ Ekspor JSON</b> lalu envioukan berkasnya ke guru, dan guru memakai <b>📊 Rekap kelas</b>.</div>':''}
+    ${!jml?`<div class="panel"><p class="hint">Belum ada nilai. Kerjakan <b>Latihan Soal</b> terlebih dahulu.</p></div>`:
+    `<div class="scroll"><table><thead><tr><th>Waktu</th><th>Bab</th><th>Hasil</th><th>Nilai</th><th>Status</th></tr></thead><tbody>
+    ${a.map(x=>{const p=Math.round(x.score/x.total*100);const n=(x.section||'').replace('latihan-','');
+      return `<tr><td>${esc(new Date(x.created_at).toLocaleString('id-ID'))}</td><td>${esc((QB[n]&&QB[n].nama)||n||'—')}</td>
+      <td>${x.score} / ${x.total}</td><td>${p}%</td>
+      <td><span class="pill ${p>=70?'ok':'no'}">${p>=70?'Tuntas':'Perlu latihan'}</span></td></tr>`}).join('')}
+    </tbody></table></div>`}`;
+}
+function cetakLaporan(){window.print()}
+function imporBerkas(inp){
+  const f=inp.files&&inp.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=async()=>{
+    try{
+      const obj=JSON.parse(r.result);
+      const n=await Store.impor(obj);
+      toast(n?n+' nilai digabung dari berkas':'Tidak ada nilai baru (sudah ada)','ok');
+      inp.value='';go('riwayat');
+    }catch(e){toast('Berkas tidak bisa dibaca: '+e.message,'err');inp.value=''}
+  };
+  r.readAsText(f);
+}
+async function ekspor(){
+  const muatan={app:'Website Pembelajaran Fungsi',ekspor:new Date().toISOString(),
+    data:{siswa:Store.me,attempt:Store.attempts}};
+  let d=muatan;
+  if(Store.online){
+    try{const r=await fetch('api/export');if(r.ok)d=await r.json()}catch(e){}
+  }
+  const blob=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);a.download='nilai-fungsi.json';a.click();
+  toast('Berkas nilai diunduh','ok');
+}
+
+/* ---------- Rekap kelas (semua nilai yang tersimpan di perangkat ini) ---------- */
+function rekapData(){
+  const g={};
+  for(const a of (Store.attempts||[])){
+    const k=(a.nama||'Tanpa nama')+'|'+(a.kelas||'');
+    g[k]=g[k]||{nama:a.nama||'Tanpa nama',kelas:a.kelas||'',jumlah:0,persen:[]};
+    g[k].jumlah++;g[k].persen.push(a.score/a.total*100);
+  }
+  return Object.values(g).map(s=>({
+    ...s,
+    rata:Math.round(s.persen.reduce((x,y)=>x+y,0)/s.persen.length),
+    terbaik:Math.round(Math.max(...s.persen))
+  })).sort((a,b)=>b.rata-a.rata);
+}
+function viewRekap(){
+  const r=rekapData();
+  const semua=Store.attempts||[];
+  return `<div class="page-head"><h2>📊 Rekap Kelas</h2>
+    <p class="sub">Rekap seluruh nilai yang tersimpan di perangkat ini — dipakai guru setelah mengimpor berkas JSON dari siswa.</p></div>
+    <div class="stats">
+      <div class="stat"><p class="k">Siswa</p><p class="v">${r.length}</p></div>
+      <div class="stat"><p class="k">Total nilai</p><p class="v">${semua.length}</p></div>
+      <div class="stat"><p class="k">Rata-rata kelas</p><p class="v">${semua.length?Math.round(semua.reduce((t,x)=>t+x.score/x.total*100,0)/semua.length):0}%</p></div>
+      <div class="stat"><p class="k">Tuntas (≥70%)</p><p class="v">${semua.filter(x=>x.score/x.total>=0.7).length}</p></div>
+    </div>
+    <div class="row"><button class="btn" onclick="cetakLaporan()">🖨 Cetak rekap</button>
+      <button class="btn ghost" onclick="document.getElementById('fileImpor2').click()">⬆ Impor JSON siswa</button>
+      <input type="file" id="fileImpor2" accept="application/json,.json" hidden onchange="imporBerkas(this)"></div>
+    ${!r.length?`<div class="panel"><p class="hint">Belum ada nilai. Kerjakan latihan sendiri, atau import berkas JSON dari siswa.</p></div>`:
+    `<div class="scroll"><table><thead><tr><th>#</th><th>Nama</th><th>Kelas</th><th>Jumlah</th><th>Rata-rata</th><th>Tertinggi</th><th>Nilai</th></tr></thead><tbody>
+    ${r.map((x,i)=>`<tr><td>${i+1}</td><td>${esc(x.nama)}</td><td>${esc(x.kelas||'—')}</td><td>${x.jumlah}</td>
+      <td>${x.rata}%</td><td>${x.terbaik}%</td>
+      <td><span class="pill ${x.rata>=70?'ok':'no'}">${x.rata>=70?'Tuntas':'Perlu latihan'}</span></td></tr>`).join('')}
+    </tbody></table></div>`}`;
+}
+
+/* ---------- Identitas siswa ---------- */
+function openSiswa(){
+  const m=Store.me||{nama:'',kelas:'',nis:''};
+  $('#modalBox').innerHTML=`<h3>👤 Identitas Siswa</h3>
+    <p class="hint">Data ini dipakai untuk menyimpan nilai di database sekolah. Boleh diisi NIS, dan boleh dikosongkan.</p>
+    <form id="fSiswa" onsubmit="return simpanSiswa(event)">
+      <div class="row"><label class="fld">Nama lengkap<input id="s_nama" value="${esc(m.nama)}" required maxlength="80" style="width:100%"></label></div>
+      <div class="row"><label class="fld">Kelas<input id="s_kelas" value="${esc(m.kelas)}" maxlength="40" style="width:100%" placeholder="XI-RPL"></label></div>
+      <div class="row"><label class="fld">NIS (opsional)<input id="s_nis" value="${esc(m.nis)}" maxlength="40" style="width:100%" placeholder="mis. 2026001"></label></div>
+      <div class="modal-act">
+        ${Store.me?'<button class="btn ghost" type="button" onclick="hapusSiswa()">Hapus data siswa</button>':''}
+        <button class="btn ghost" type="button" onclick="closeModal()">Batal</button>
+        <button class="btn" type="submit">Simpan</button>
+      </div>
+    </form>`;
+  $('#modal').classList.add('open');
+}
+function simpanSiswa(e){
+  e.preventDefault();
+  const d={nama:$('#s_nama').value.trim(),kelas:$('#s_kelas').value.trim(),nis:$('#s_nis').value.trim()};
+  if(!d.nama){toast('Nama wajib diisi','err');return false}
+  Store.simpanSiswa(d).then(()=>{
+    closeModal();perbaruiIdentitas();
+    toast(Store.online?'Identitas tersimpan ke database':'Identitas tersimpan di browser','ok');
+    if(location.hash==='#riwayat')go('riwayat');
+  }).catch(err=>toast(err.message,'err'));
+  return false;
+}
+function hapusSiswa(){
+  if(!Store.me)return;
+  if(!confirm('Hapus identitas dan seluruh nilai siswa ini dari database?'))return;
+  if(Store.online)fetch('api/students/'+Store.me.id,{method:'DELETE'}).catch(()=>{});
+  Store.me=null;Store.attempts=[];Store.progress={};
+  Store.lsSet(LS.k.s,null);Store.lsSet(LS.k.a,[]);Store.lsSet(LS.k.p,{});
+  closeModal();perbaruiIdentitas();toast('Data siswa dihapus','ok');
+}
+function closeModal(){$('#modal').classList.remove('open')}
+function perbaruiIdentitas(){
+  $('#who').innerHTML=Store.me?`${esc(Store.me.nama)} · ${esc(Store.me.kelas||'—')}`:'Identitas Siswa';
+  const s=$('#btnSiswa');s.title=Store.me?'Klik untuk mengubah identitas':'Klik untuk mengisi identitas siswa';
+}
+
+/* ---------- NAVIGASI ---------- */
+const NAV=[['home','🏠 Dashboard'],['kb1','📈 KB 1'],['kb2','📐 KB 2'],['kb3','⛓️ KB 3'],['kb4','📊 KB 4'],['latihan','🧩 Latihan'],['riwayat','📈 Riwayat'],['rekap','📋 Rekap']];
+function gambarNav(aktif){
+  $('#nav').innerHTML=NAV.map(([k,l])=>`<button onclick="go('${k}')" ${aktif===k?'aria-current="page"':''}>${l}</button>`).join('');
+}
+
+function home(){
+  gambarNav('home');
+  const me=Store.me;
+  const a=Store.attempts||[];
+  const jml=a.length;
+  const rata=jml?Math.round(a.reduce((t,x)=>t+x.score/x.total*100,0)/jml):null;
+  const terbaik=jml?Math.round(Math.max(...a.map(x=>x.score/x.total*100))):null;
+  const konto=['kb1','kb2','kb3','kb4'];
+  app.innerHTML=`
+  <div class="hero"><h2>Halo${me?', '+esc(me.nama):''}! 👋</h2>
+    <p>Materi fungsi linear, kuadrat, komposisi &amp; invers, serta program linear — lengkap dengan grafik interaktif, kalkulator, dan latihan otomatis.</p></div>
+  <div class="stats">
+    <div class="stat"><p class="k">Materi</p><p class="v">4 KB</p></div>
+    <div class="stat"><p class="k">Total latihan</p><p class="v">${jml}</p></div>
+    <div class="stat"><p class="k">Rata-rata</p><p class="v">${rata===null?'—':rata+'%'}</p></div>
+    <div class="stat"><p class="k">Tertinggi</p><p class="v">${terbaik===null?'—':terbaik+'%'}</p></div>
+  </div>
+  <div class="page-head"><h2>📚 Daftar Materi</h2></div>
+  <div class="grid">`+
+  konto.map(k=>{
+    const skor=latest(k);
+    return `<button class="card" onclick="go('${k}')">
+      <div class="ico">${VIEWS[k].ico}</div>
+      <b>${k.toUpperCase().replace('KB','KB ')} · ${QB[k].nama}</b>
+      <span>${deskripsi(k)}</span>
+      ${skor===null?'<span class="tag new">Belum dikerjakan</span>':`<span class="tag done">Nilai terakhir ${skor}%</span>`}
+    </button>`}).join('')+
+  `<button class="card" onclick="go('latihan')">
+     <div class="ico">🧩</div><b>Latihan Soal</b><span>Soal pilihan ganda dengan penilaian otomatis dan penyimpanan nilai.</span>
+     <span class="tag new">Baru</span></button>
+   <button class="card" onclick="go('riwayat')">
+     <div class="ico">📈</div><b>Riwayat Nilai</b><span>Rekap nilai, cetak laporan untuk guru, ekspor data.</span></button>
+   <button class="card" onclick="go('profil')">
+     <div class="ico">👤</div><b>Profil</b><span>Pengembang proyek Website Pembelajaran Fungsi.</span></button>`+
+  `</div>`;
+}
+function deskripsi(k){
+  return {kb1:'Grafik garis lurus, gradien, titik potong sumbu-x &amp; sumbu-y.',
+    kb2:'Parabola, diskriminan, sumbu simetri, dan titik puncak.',
+    kb3:'Komposisi f∘g, g∘f, dan invers fungsi linear.',
+    kb4:'Maksimum/minimum fungsi objektif di daerah penyelesaian.'}[k];
+}
+function latest(k){
+  const a=(Store.attempts||[]).filter(x=>x.section==='latihan-'+k);
+  return a.length?Math.round(a[0].score/a[0].total*100):null;
+}
+function go(k){
+  if(k==='home')return home();
+  const v=VIEWS[k];if(!v)return home();
+  gambarNav(k);
+  app.innerHTML=`<button class="back" onclick="go('home')">← Dashboard</button>
+    <div class="page-head"><h2>${v.t}</h2></div>`+v.h();
+  if(v.i)v.i();
+  window.scrollTo(0,0);
+  location.hash=k;
+}
+
+/* ========================= START ========================= */
+(async function(){
+  try{applyTheme(localStorage.getItem('asas_theme')||'auto')}catch(e){}
+  Store.memuat();
+  perbaruiIdentitas();
+  await Store.cek();
+  await Store.muatDariServer();
+  perbaruiIdentitas();
+  home();
+  if(location.hash && location.hash!=='#home'){
+    const k=location.hash.slice(1);
+    if(VIEWS[k])go(k);
+  }
+})();
+</script>
+</body>
+</html>

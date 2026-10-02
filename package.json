@@ -1,0 +1,21 @@
+{
+  "name": "website-pembelajaran-fungsi",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Website Pembelajaran Fungsi - materi fungsi linear, kuadrat, komposisi & invers, program linear. Server tanpa dependency (Node built-in http + node:sqlite).",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "keywords": [
+    "matematika",
+    "fungsi",
+    "pembelajaran",
+    "sekolah"
+  ],
+  "license": "MIT"
+}

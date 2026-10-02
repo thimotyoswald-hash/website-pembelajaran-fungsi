@@ -1,0 +1,20 @@
+# Database & berkas lokal
+data/
+*.db
+*.db-wal
+*.db-shm
+
+# Uji & sementara
+_t*.html
+_ujitest.html
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
