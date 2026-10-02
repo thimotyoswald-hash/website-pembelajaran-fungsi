@@ -1,5 +1,6 @@
 # Database & berkas lokal
 data/
+site/
 *.db
 *.db-wal
 *.db-shm
@@ -18,3 +19,4 @@ npm-debug.log*
 .DS_Store
 Thumbs.db
 desktop.ini
+.vercel

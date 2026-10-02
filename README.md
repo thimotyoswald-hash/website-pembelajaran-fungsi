@@ -6,17 +6,37 @@ Dilengkapi grafik interaktif, kalkulator komposisi, latihan soal dengan penilaia
 > Materi dan seluruh teks soal contoh **tidak diubah, tidak diganti, dan tidak dihapus** dari versi sebelumnya.
 > Yang ditambahkan hanya tampilan (tema biru), navigasi, latihan soal, dan penyimpanan data.
 
-🌐 **Situs daring:** https://thimotyoswald-hash.github.io/website-pembelajaran-fungsi/
+🌐 **Situs daring (aktif):**
+- Vercel — https://website-pembelajaran-fungsi.vercel.app
+- GitHub Pages — https://thimotyoswald-hash.github.io/website-pembelajaran-fungsi/
+
+Keduanya menampilkan situs yang sama persis. Buka salah satu di HP — tidak perlu instalasi.
+⚠️ Pada mode daring **nilai tersimpan di browser masing-masing perangkat**, bukan di satu database
+bersama. Cara menghimpun nilai dijelaskan di [Menyimpan data](#-menyimpan-data).
 
 ---
 
 ## 🚀 Dua cara menjalankan
 
-### 1. Daring (GitHub Pages) — untuk siswa
+### 1. Daring — untuk siswa
 
-Buka alamat di atas. Tidak perlu instalasi apa pun, bisa dibuka HP. ⚠️ Pada mode ini **nilai tersimpan di
-browser masing-masing perangkat**, bukan di satu database bersama. Cara menghimpun nilai dijelaskan di
-[Menyimpan data](#-menyimpan-data).
+| Hosting | Alamat |
+|---|---|
+| Vercel | https://website-pembelajaran-fungsi.vercel.app |
+| GitHub Pages | https://thimotyoswald-hash.github.io/website-pembelajaran-fungsi/ |
+
+Buka salah satu alamat di atas. Tidak perlu instalasi apa pun, bisa dibuka HP. ⚠️ Pada mode daring
+**nilai tersimpan di browser masing-masing perangkat**, bukan di satu database bersama. Cara menghimpun
+nilai dijelaskan di [Menyimpan data](#-menyimpan-data).
+
+### Menerbitkan ulang ke Vercel
+
+```bash
+vercel --prod --yes
+```
+
+Folder `site/` dibuat otomatis oleh `npm run build` dari `index.html`, sehingga isinya selalu identik
+dengan berkas sumber.
 
 ### 2. Lokal / jaringan sekolah (Node.js + SQLite) — untuk guru
 
@@ -68,8 +88,11 @@ ASAS MTK/
 ├── Website Pembelajaran Fungsi.html   # pengalihan ke index.html (jika tautan lama dibuka)
 ├── server.js                         # server + REST API + SQLite (tanpa dependency)
 ├── package.json                      # konfigurasi & pintasan npm start
-├── .nojekyll                         #Agar GitHub Pages tidak memproses Jekyll
-├── .gitignore                        # mengabaikan folder data/ (database)
+├── .nojekyll                         # agar hosting statis tidak memakai Jekyll
+├── build-site.js                     # membuat folder site/ untuk hosting statis
+├── vercel.json                       # konfigurasi build Vercel
+├── .vercelignore                     # berkas yang tidak ikut diunggah ke Vercel
+├── .gitignore                        # mengabaikan folder data/ (database) dan site/
 └── data/
     └── asas.db                       # database SQLite (otomatis dibuat saat server jalan)
 ```
